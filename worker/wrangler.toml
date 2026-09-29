@@ -1,0 +1,19 @@
+name = "wardogs-api"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[vars]
+# Exact origin(s) of your hosted PWA, comma-separated. No trailing slash.
+ALLOWED_ORIGINS = "https://wardogs-hours.pages.dev"
+
+# Per-IP rate limit: 20 lookups / minute.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+  [ratelimits.simple]
+  limit = 20
+  period = 60
+
+# The Steam key is a secret, NOT a var. Set it with:
+#   npx wrangler secret put STEAM_API_KEY

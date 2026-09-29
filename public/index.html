@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Keep connect-src in sync with API_BASE in app.js and with _headers -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; manifest-src 'self'; worker-src 'self'; connect-src 'self' https://wardogs-api.YOUR-SUBDOMAIN.workers.dev; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#14161a">
+  <meta name="description" content="How many hours have you spent in WARDOGS compared to the time since launch?">
+  <title>WARDOGS Hour Calculator</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>WARDOGS <span>Hour Calculator</span></h1>
+      <p class="sub">Your playtime vs. every hour since launch</p>
+    </header>
+
+    <section class="card" aria-labelledby="since-label">
+      <p id="since-label" class="label">Hours since release</p>
+      <p id="since-hours" class="big mono">0.0000</p>
+      <p id="since-clock" class="mono muted">0d 00:00:00</p>
+      <p class="muted small">Early Access launch: <time datetime="2026-09-10T16:00:00Z" id="release-local">Sept 10, 2026 16:00 UTC</time></p>
+    </section>
+
+    <form id="search-form" class="card" novalidate>
+      <label for="steam-input" class="label">Steam username, SteamID64, or profile URL</label>
+      <div class="row">
+        <input id="steam-input" name="q" type="text" inputmode="text" autocomplete="off"
+               autocapitalize="off" spellcheck="false" maxlength="100" required
+               placeholder="e.g. gabelogannewell or 7656119…">
+        <button type="submit" id="submit-btn">Look up</button>
+      </div>
+      <p id="error" class="error" role="alert" hidden></p>
+      <div id="recent-wrap" hidden>
+        <div class="recent-head">
+          <p class="label">Recent searches</p>
+          <button type="button" id="clear-recent" class="link">Clear</button>
+        </div>
+        <ul id="recent" class="chips"></ul>
+      </div>
+    </form>
+
+    <section id="result" class="card" aria-live="polite" hidden>
+      <p class="label" id="result-name"></p>
+      <div class="compare">
+        <div>
+          <p class="big mono" id="played-hours">0</p>
+          <p class="muted small">hours played</p>
+        </div>
+        <div class="vs">of</div>
+        <div>
+          <p class="big mono" id="since-hours-2">0</p>
+          <p class="muted small">hours since release</p>
+        </div>
+      </div>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar">
+        <div class="fill" id="bar-fill"></div>
+      </div>
+      <p id="percent-line" class="percent"></p>
+    </section>
+
+    <footer class="muted small">
+      Your profile's game details must be public. Only your recent searches are stored, on this device.
+      Not affiliated with Valve or the WARDOGS developers.
+    </footer>
+  </main>
+</body>
+</html>
